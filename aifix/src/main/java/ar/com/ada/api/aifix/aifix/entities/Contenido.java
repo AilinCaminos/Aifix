@@ -71,8 +71,10 @@ public class Contenido {
         this.descripcion = descripcion;
     }
 
-    public ObjectId get_id() {
-        return _id;
+    public String get_id() {
+        if (_id == null)
+            return null;
+        return _id.toHexString();
     }
 
     public void set_id(ObjectId _id) {

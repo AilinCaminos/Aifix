@@ -2,6 +2,7 @@ package ar.com.ada.api.aifix.aifix.services;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,12 @@ public class SerieService {
 
     public List<Serie> listarSeries() {
         return sRepository.findAll();
+    }
+
+    public Serie buscarSeriePorId(ObjectId id){
+
+        return sRepository.findBy_id(id);
+   
     }
 
 }

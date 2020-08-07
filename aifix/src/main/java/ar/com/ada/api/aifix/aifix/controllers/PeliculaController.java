@@ -11,44 +11,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ada.api.aifix.aifix.entities.Serie;
+import ar.com.ada.api.aifix.aifix.entities.Pelicula;
 import ar.com.ada.api.aifix.aifix.models.responses.GenericResponse;
-import ar.com.ada.api.aifix.aifix.services.SerieService;
+import ar.com.ada.api.aifix.aifix.services.PeliculaService;
 
 @RestController
-public class SerieController {
-    
-    @Autowired
-    SerieService serieService;
+public class PeliculaController {
 
-    @PostMapping("/api/series")
-    public ResponseEntity<GenericResponse> crearSerie(@RequestBody Serie serieInfo){
+    @Autowired
+    PeliculaService peliculaService;
+
+    @PostMapping("/api/peliculas")
+    public ResponseEntity<GenericResponse> crearSerie(@RequestBody Pelicula peliInfo){
         
-        serieService.grabar(serieInfo);
+        peliculaService.grabar(peliInfo);
         GenericResponse response = new GenericResponse();
         response.isOK = true;
-        response.message =  "Serie creada con exito!";
-        response.id= serieInfo.get_id();
+        response.message =  "Pelicula creada con exito!";
+        response.id= peliInfo.get_id();
 
         return  ResponseEntity.ok(response);
     }
-    
-    @GetMapping("/api/series")
-    public ResponseEntity<List<Serie>> listarSeries(){
 
-        return ResponseEntity.ok(serieService.listarSeries());
-    }
-
-    @GetMapping("/api/series/{id}")
-    public ResponseEntity<Serie> buscarSeriePorId(@PathVariable String id){
+    @GetMapping("/api/peliculas/{id}")
+    public ResponseEntity<Pelicula> buscarSeriePorId(@PathVariable String id){
 
         ObjectId objId = new ObjectId(id);
-        Serie serie = serieService.buscarSeriePorId(objId);
+        Pelicula pelicula = peliculaService.buscarSeriePorId(objId);
 
-        if(serie == null){
+        if(pelicula == null){
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(serie);
+        return ResponseEntity.ok(pelicula);
     }
+    
 }
